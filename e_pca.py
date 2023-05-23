@@ -14,8 +14,9 @@ def main():
     print(f"PCA components: {pca.components_}")
     pcs = pca.transform(standarized)
     print(f"pc1 y pc2: {pcs}")
-    plots.bargraph(pcs[:, 0], countries, title="", x_label="Countries", y_label="PC1")
-    plots.biplot(pcs[:, 0], pcs[:, 1], countries, variables, pca.components_)
+    sorted_pc1s, sorted_countries = zip(*sorted(zip(pcs[:, 0], countries)))
+    plots.bargraph(sorted_pc1s, sorted_countries, title="Components", x_label="PC1", y_label="Countries")
+    plots.biplot(pcs[:, 0], pcs[:, 1], countries, variables, pca.components_, title="Biplot")
 
 
 if __name__ == '__main__':
