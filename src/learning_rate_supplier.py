@@ -24,3 +24,14 @@ class ExponentialDecayLearningRate(LearningRateSupplier):
         ans = self._learning_rate
         self._learning_rate *= self._decay
         return ans
+
+
+class ReciprocalLearningRate(LearningRateSupplier):
+    def __init__(self, learning_rate: Number):
+        self._learning_rate = learning_rate
+        self._epoch = 1
+
+    def supply(self) -> Number:
+        ans = self._learning_rate / self._epoch
+        self._epoch += 1
+        return ans
