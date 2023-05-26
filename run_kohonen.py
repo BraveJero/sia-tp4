@@ -5,6 +5,27 @@ import utils
 from src.kohonen.kohonen import KohonenNetwork
 
 
+def print_top_10_distances():
+    variables, countries, data = utils.read_data_from_csv("./data/europe.csv")
+    standardized = utils.standarize_matrix_by_colum(data)
+
+    # Calculate the pairwise Euclidean distances between all countries
+    n = len(standardized)
+    dists = []
+    for i in range(n):
+        for j in range(i + 1, n):
+            dist = np.linalg.norm(standardized[i] - standardized[j])
+            dists.append((dist, countries[i], countries[j]))
+
+    # Sort the distances in ascending order
+    dists.sort()
+
+    # Print out the top 10 distances and the corresponding country pairs
+    print("Top 10 closest country pairs based on standardized data:")
+    for i, (dist, country1, country2) in enumerate(dists[:10]):
+        print(f"{i + 1}. {country1} - {country2}: {dist}")
+
+
 def main():
     variables, countries, data = utils.read_data_from_csv("./data/europe.csv")
     standardized = utils.standarize_matrix_by_colum(data)
@@ -40,3 +61,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print_top_10_distances()

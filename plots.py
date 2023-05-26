@@ -59,7 +59,7 @@ def heatmap(matrix, file, title=None, text=None):
     # Annotate the heatmap with the values
     for i in range(len(text)):
         for j in range(len(text[0])):
-            plt.text(j, i, text[i][j], ha='center', va='center', color='black')
+            plt.text(j, i, text[i][j], ha='center', va='center', color='black', fontsize=9)
 
     plt.title(title)
 
