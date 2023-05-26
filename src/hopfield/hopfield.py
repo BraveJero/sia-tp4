@@ -9,9 +9,10 @@ class HopfieldNetwork:
     def train(self, patterns):
         pattern_size = len(patterns[0])
 
-        if self.n_neurons * 0.15 < len(patterns):
-            raise RuntimeWarning("The maximum number of patterns you can store is equal to 15% of the number of "
-                                 "network neurons.")
+        # if self.n_neurons * 0.15 < len(patterns):  # TODO: Check this.
+        #     raise RuntimeWarning(f"The maximum number of patterns you can store is equal to 15% of the number of "
+        #                          f"network neurons. Number of patterns = {len(patterns)} !<= Number of neurons * 0.15"
+        #                          f" =  {self.n_neurons * 0.15}")
 
         for pattern in patterns:
             pattern = np.array(pattern).reshape(-1, 1)
@@ -27,4 +28,5 @@ class HopfieldNetwork:
             if np.array_equal(updated_pattern, pattern):
                 return updated_pattern.flatten()
             pattern = updated_pattern
+        print("pepe")
         return pattern.flatten()
