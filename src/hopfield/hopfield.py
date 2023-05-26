@@ -28,5 +28,4 @@ class HopfieldNetwork:
             if np.array_equal(updated_pattern, pattern):
                 return updated_pattern.flatten()
             pattern = updated_pattern
-        print("pepe")
         return pattern.flatten()
