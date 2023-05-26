@@ -1,13 +1,16 @@
-import numpy as np
-from src.kohonen import KohonenNet
-from utils import visualize_clusters
+import utils
+from src.kohonen.kohonen import KohonenNetwork
 
 
 def main():
-    kohonen_net = KohonenNet(4, 4, 10000)
-    cluster, cluster_centroids = kohonen_net.train_min_som("./data/europe.csv")
+    variables, countries, data = utils.read_data_from_csv("./data/europe.csv")
+    standardized = utils.standarize_matrix_by_colum(data)
 
-    visualize_clusters(cluster, cluster_centroids, 4, 4)
+    kohonen = KohonenNetwork(size=4, weights=standardized)
+
+    kohonen.train(standardized)
+
+    # visualize_clusters(cluster, cluster_centroids, 4, 4)
 
 
 if __name__ == '__main__':
