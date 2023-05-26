@@ -44,3 +44,19 @@ def biplot(pc1, pc2, labels, features, loadings, title=None, x_label="PC1", y_la
     plt.figure()
 
     plt.show()
+
+
+def heatmap(matrix, title=None, text=None):
+    if text is None:
+        text = []
+    plt.imshow(matrix, cmap='RdYlGn')
+    plt.colorbar()
+
+    # Annotate the heatmap with the values
+    for i in range(len(text)):
+        for j in range(len(text[0])):
+            plt.text(j, i, round(text[i][j], 2), ha='center', va='center', color='black')
+
+    plt.title(title)
+
+    plt.show()

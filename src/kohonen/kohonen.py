@@ -41,6 +41,10 @@ class KohonenNetwork:
 
         self._matrix = matrix
 
+    @property
+    def matrix(self) -> ndarray:
+        return self._matrix
+
     def train(self, data: ndarray):
         assert data.shape[1] == self._matrix.shape[2]
 
@@ -55,22 +59,14 @@ class KohonenNetwork:
                     if np.sqrt((i - i_win) ** 2 + (j - i_win) ** 2) < self._radius:
                         np.add(self._matrix[i, j], self._learning_rate * (element - self._matrix[i, j]))
 
-    def update_parameters(self, epoch):
+    def update_parameters(self, epoch: int):
         if self._update_learning_rate:
             self._learning_rate = 1 / epoch
 
         if self._update_radius:
             self._radius = self._size / epoch
 
-    def get_closest_weight_to_element_index(self, value):
+    def get_closest_weight_to_element_index(self, value: ndarray) -> tuple[int, int]:
         # compute the Euclidean distances between value and all the vectors in the matrix
-        distances = np.sqrt(np.sum((self._matrix - value) ** 2, axis=2))
-
-        # get the index of the value with the smallest distance to "value"
-        min_index = np.argmin(distances)
-
-        # compute the indices i, j corresponding to min_index (assuming size x size matrix)
-        i = min_index // self._size
-        j = min_index % self._size
-
-        return i, j
+        distances = np.linalg.norm(self._matrix - value, axis=2)
+        return np.unravel_index(distances.argmin(), distances.shape)[:2]
