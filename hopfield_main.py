@@ -39,7 +39,8 @@ def main():
     energy_history = [hopfield.energy(pattern) for pattern in pattern_history]
     pattern_history = [pattern.reshape(5, 5) for pattern in pattern_history]
     print(pattern_history)
-    plots.pattern(pattern_history[-1])
+    for pattern in pattern_history:
+        plots.pattern(pattern)
 
 
 if __name__ == "__main__":
