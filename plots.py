@@ -18,7 +18,8 @@ def bargraph(data, labels, title=None, x_label=None, y_label=None):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.subplots_adjust(left=0.25)
-    ax.barh(labels, data)
+    ax.grid(zorder=0)
+    ax.barh(labels, data, zorder=3)
     plt.show()
 
 
