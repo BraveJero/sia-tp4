@@ -1,4 +1,6 @@
+import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib import ticker
 
 
 def boxplot(data, labels, title=None, x_label=None, y_label=None):
@@ -43,4 +45,19 @@ def biplot(pc1, pc2, labels, features, loadings, title=None, x_label="PC1", y_la
 
     plt.figure()
 
+    plt.show()
+
+
+def pattern(data):
+    fig, ax = plt.subplots()
+    ax.spines[:].set_visible(False)
+    ax.set_xticks(np.arange(data.shape[1]+1)-.5, minor=True)
+    ax.set_yticks(np.arange(data.shape[0]+1)-.5, minor=True)
+    ax.grid(which="minor", color="tab:gray", linestyle='-', linewidth=3)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    ax.tick_params(left=False, bottom=False)
+    plt.style.use('grayscale')
+    plt.imshow(data)
+    ax.xaxis.set_major_locator(ticker.NullLocator())
+    ax.yaxis.set_major_locator(ticker.NullLocator())
     plt.show()
