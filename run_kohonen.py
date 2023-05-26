@@ -30,8 +30,20 @@ def main():
     variables, countries, data = utils.read_data_from_csv("./data/europe.csv")
     standardized = utils.standarize_matrix_by_colum(data)
 
+    settings = utils.get_settings()
+
+    match settings["init_weights"]:
+        case "data":
+            weights = standardized
+        case "random":
+            weights = None
+        case _:
+            raise ValueError("invalid weights config")
+    dim = standardized.shape[1]
     size = 4
-    kohonen = KohonenNetwork(size=size, weights=standardized)
+    learning_rate = settings["learning_rate"] if settings["constant_lr"] else None
+    radius = settings["radius"] if settings["constant_radius"] else None
+    kohonen = KohonenNetwork(size, radius, learning_rate, weights, dim)
 
     kohonen.train(standardized)
 

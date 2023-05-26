@@ -1,7 +1,22 @@
 import csv
+import json
+import sys
 
 import numpy as np
 from numpy import ndarray
+
+
+def get_settings():
+    if len(sys.argv) < 2:
+        print("Config file argument not found")
+        exit(1)
+
+    path = sys.argv[1]
+    with open(path, "r") as f:
+        settings = json.load(f)
+    if settings is None:
+        raise ValueError("Unable to open settings")
+    return settings
 
 
 def read_data_from_csv(filename: str, sep: str = ',', header: int = 0):
