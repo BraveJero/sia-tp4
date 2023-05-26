@@ -70,6 +70,10 @@ def main():
 
     plots.heatmap(u_matrix, "umatrix.png", "u-matrix")
 
+    # make heatmap for each feature
+    for i, variable in enumerate(variables[1:]):
+        plots.heatmap(kohonen.matrix[:, :, i], f"{variable}.png", variable)
+
 
 if __name__ == '__main__':
     main()
