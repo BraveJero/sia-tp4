@@ -56,7 +56,7 @@ class KohonenNetwork:
 
             for i in range(self._size):
                 for j in range(self._size):
-                    if np.sqrt((i - i_win) ** 2 + (j - i_win) ** 2) < self._radius:
+                    if np.sqrt((i - i_win) ** 2 + (j - i_win) ** 2) <= self._radius:
                         np.add(self._matrix[i, j], self._learning_rate * (element - self._matrix[i, j]))
 
     def update_parameters(self, epoch: int):
