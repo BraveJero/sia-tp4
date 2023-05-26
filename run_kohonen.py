@@ -15,12 +15,14 @@ def main():
     kohonen.train(standardized)
 
     hit_matrix = np.zeros((size, size))
+    names_matrix = [["" for j in range(size)] for i in range(size)]
 
-    for element in standardized:
+    for idx, element in enumerate(standardized):
         i, j = kohonen.get_closest_weight_to_element_index(element)
         hit_matrix[i, j] += 1
+        names_matrix[i][j] += countries[idx] + "\n"
 
-    plots.heatmap(hit_matrix, "hits.png", "hits", hit_matrix)
+    plots.heatmap(hit_matrix, "hits.png", "hits", names_matrix)
 
     u_matrix = np.zeros((size, size))
     neighbor_indices = [(-1, 0), (1, 0), (0, -1), (0, 1)]
