@@ -16,9 +16,10 @@ class OjaRule:
               weights: np.ndarray,
               epochs: int):
         for epoch in range(epochs):
+            learning_rate = learning_rate_supplier.supply()
             for data_input in data:
                 data_output = np.dot(data_input, weights)
-                dw = learning_rate_supplier.supply() * data_output * (data_input - data_output * weights)
+                dw = learning_rate * data_output * (data_input - data_output * weights)
                 weights += dw
 
     @staticmethod
