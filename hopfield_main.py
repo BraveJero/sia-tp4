@@ -1,3 +1,4 @@
+import plots
 from src.hopfield.hopfield import HopfieldNetwork
 
 
@@ -27,7 +28,7 @@ B = [1, 1, 1, 1, -1,
      1, 1, 1, 1, -1]
 
 # Combine the matrices into a single vector
-letters = [J, A, Z]
+letters = [J, A, Z, B]
 
 
 def main():
@@ -37,7 +38,8 @@ def main():
     pattern_history, terminated = hopfield.recall(B, 100)
     energy_history = [hopfield.energy(pattern) for pattern in pattern_history]
     pattern_history = [pattern.reshape(5, 5) for pattern in pattern_history]
-    print(pattern_history[-1])
+    print(pattern_history)
+    plots.pattern(pattern_history[-1])
 
 
 if __name__ == "__main__":
