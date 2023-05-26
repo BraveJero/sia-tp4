@@ -23,11 +23,15 @@ class HopfieldNetwork:
 
     def recall(self, pattern, max_iter=100):
         pattern = np.array(pattern).reshape(-1, 1)
-        history = [pattern]
+        pattern_history = [pattern]
         for _ in range(max_iter):
             updated_pattern = np.sign(np.dot(self.weights, pattern))
             if np.array_equal(updated_pattern, pattern):
-                return history
+                self.energy(updated_pattern)
+                return pattern_history, True
             pattern = updated_pattern
-            history.append(pattern)
-        return history
+            pattern_history.append(pattern)
+        return pattern_history, False
+
+    def energy(self, pattern):
+        return - 0.5 * np.dot(pattern.flatten(), np.dot(self.weights, pattern).flatten())
