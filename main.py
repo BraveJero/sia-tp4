@@ -1,6 +1,5 @@
 import numpy as np
 from src.kohonen import KohonenNet
-from utils import visualize_clusters
 
 
 def main():
