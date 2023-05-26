@@ -1,4 +1,8 @@
+import os
+
 from matplotlib import pyplot as plt
+
+os.makedirs("./figs", exist_ok=True)
 
 
 def boxplot(data, labels, title=None, x_label=None, y_label=None):
@@ -46,7 +50,7 @@ def biplot(pc1, pc2, labels, features, loadings, title=None, x_label="PC1", y_la
     plt.show()
 
 
-def heatmap(matrix, title=None, text=None):
+def heatmap(matrix, file, title=None, text=None):
     if text is None:
         text = []
     plt.imshow(matrix, cmap='RdYlGn')
@@ -60,3 +64,5 @@ def heatmap(matrix, title=None, text=None):
     plt.title(title)
 
     plt.show()
+
+    plt.savefig(f"./figs/{file}")

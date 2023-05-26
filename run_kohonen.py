@@ -20,7 +20,7 @@ def main():
         i, j = kohonen.get_closest_weight_to_element_index(element)
         hit_matrix[i, j] += 1
 
-    plots.heatmap(hit_matrix, "hits", hit_matrix)
+    plots.heatmap(hit_matrix, "hits.png", "hits", hit_matrix)
 
 
 if __name__ == '__main__':
