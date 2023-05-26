@@ -34,7 +34,10 @@ def main():
     hopfield = HopfieldNetwork(len(letters[0]))
     hopfield.train(letters)
 
-    print(hopfield.recall(A, 100) == A)
+    pattern_history, terminated = hopfield.recall(B, 100)
+    energy_history = [hopfield.energy(pattern) for pattern in pattern_history]
+    pattern_history = [pattern.reshape(5, 5) for pattern in pattern_history]
+    print(pattern_history[-1])
 
 
 if __name__ == "__main__":
