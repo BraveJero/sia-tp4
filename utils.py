@@ -10,3 +10,14 @@ def read_data_from_csv(filename: str, sep: str = ',', header: int = 0):
 
 def standarize_matrix_by_colum(m: ndarray) -> ndarray:
     return (m - np.mean(m, axis=0)) / np.std(m.astype(float), axis=0)
+
+
+def add_noise(letters, gamma=0.5):
+    letters_with_noise = [list(letter) for letter in letters]
+
+    for letter in letters_with_noise:
+        for i, cells in enumerate(letter):
+            if random.random() <= gamma:
+                letter[i] = letter[i] * -1
+
+    return letters_with_noise
