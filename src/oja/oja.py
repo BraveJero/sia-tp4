@@ -1,8 +1,6 @@
-from numbers import Number
-
 import numpy as np
 
-from src.learning_rate_supplier import LearningRateSupplier
+from src.oja.learning_rate_supplier import LearningRateSupplier
 
 
 class OjaRule:

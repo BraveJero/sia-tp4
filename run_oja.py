@@ -1,7 +1,7 @@
 import plots
 import utils
-from src.learning_rate_supplier import ConstantLearningRate, ExponentialDecayLearningRate, ReciprocalLearningRate
-from src.oja import OjaRule
+from src.oja.learning_rate_supplier import ConstantLearningRate
+from src.oja.oja import OjaRule
 
 
 def main():
@@ -16,7 +16,8 @@ def main():
     print(w)
     scores = [OjaRule.test(data, w) for data in standardized_data]
     sorted_scores, sorted_countries = zip(*sorted(zip(scores, countries)))
-    plots.bargraph(sorted_scores, sorted_countries, title="Components with Oja Rule", x_label="PC1", y_label="Countries")
+    plots.bargraph(sorted_scores, sorted_countries, title="Components with Oja Rule", x_label="PC1",
+                   y_label="Countries")
 
 
 if __name__ == '__main__':
