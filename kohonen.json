@@ -1,0 +1,8 @@
+{
+  "learning_rate": 0.1,
+  "constant_lr": false,
+  "radius": 1,
+  "constant_radius": false,
+  "size": 4,
+  "init_weights": "random"
+}

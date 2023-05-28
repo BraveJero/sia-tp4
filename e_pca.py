@@ -1,6 +1,7 @@
-import utils
-import plots
 from sklearn.decomposition import PCA
+
+import plots
+import utils
 
 
 def main():
