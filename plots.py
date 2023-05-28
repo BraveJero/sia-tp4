@@ -1,6 +1,10 @@
 import numpy as np
+import os
+
 from matplotlib import pyplot as plt
 from matplotlib import ticker
+
+os.makedirs("./figs", exist_ok=True)
 
 
 def boxplot(data, labels, title=None, x_label=None, y_label=None):
@@ -48,6 +52,7 @@ def biplot(pc1, pc2, labels, features, loadings, title=None, x_label="PC1", y_la
     plt.show()
 
 
+
 def pattern(data):
     fig, ax = plt.subplots()
     ax.spines[:].set_visible(False)
@@ -61,3 +66,22 @@ def pattern(data):
     ax.xaxis.set_major_locator(ticker.NullLocator())
     ax.yaxis.set_major_locator(ticker.NullLocator())
     plt.show()
+    
+
+def heatmap(matrix, file, title=None, text=None):
+    if text is None:
+        text = []
+    plt.imshow(matrix, cmap='RdYlGn')
+    plt.colorbar()
+
+    # Annotate the heatmap with the values
+    for i in range(len(text)):
+        for j in range(len(text[0])):
+            plt.text(j, i, text[i][j], ha='center', va='center', color='black', fontsize=9)
+
+    plt.title(title)
+
+    plt.show()
+
+    plt.savefig(f"./figs/{file}")
+
