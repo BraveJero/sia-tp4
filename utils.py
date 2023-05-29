@@ -36,6 +36,15 @@ def standarize_matrix_by_colum(m: ndarray) -> ndarray:
     return (m - np.mean(m, axis=0)) / np.std(m.astype(float), axis=0)
 
 
+def add_small_noise(letter, count):
+    letter_with_noise = letter
+    indices = np.random.choice(len(letter) - 1, size=count, replace=False)
+    for i in indices:
+        letter_with_noise[i] *= -1
+
+    return letter_with_noise
+
+
 def add_noise(letters, gamma=0.5):
     letters_with_noise = [list(letter) for letter in letters]
 
