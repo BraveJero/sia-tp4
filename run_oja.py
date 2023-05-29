@@ -5,12 +5,14 @@ from src.oja.oja import OjaRule
 
 
 def main():
+    settings = utils.get_settings()
+    learning_rate = settings["learning_rate"]
     variables, countries, data = utils.read_data_from_csv("./data/europe.csv")
     standardized_data = utils.standarize_matrix_by_colum(data)
 
     w = OjaRule.initialize_weights(data.shape[1])
     OjaRule.train(data=standardized_data,
-                  learning_rate_supplier=ConstantLearningRate(0.001),
+                  learning_rate_supplier=ConstantLearningRate(learning_rate),
                   weights=w,
                   epochs=1000)
     print(w)
