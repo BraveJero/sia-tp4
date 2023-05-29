@@ -84,3 +84,15 @@ def heatmap(matrix, file, title=None, text=None):
     plt.show()
 
     plt.savefig(f"./figs/{file}")
+
+
+def lineplot(data, labels, title=None):
+    fig, ax = plt.subplots()
+    plt.title(title)
+    # plt.xticks(rotation=45, ha='right')
+    for dat, label in zip(data, labels):
+        print(label)
+        ax.plot(dat, label=label)
+    plt.legend(loc='best')
+    plt.show()
+
