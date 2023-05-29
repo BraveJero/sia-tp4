@@ -23,7 +23,7 @@ def print_top_10_distances():
     # Print out the top 10 distances and the corresponding country pairs
     print("Top 10 closest country pairs based on standardized data:")
     for i, (dist, country1, country2) in enumerate(dists[:10]):
-        print(f"{i + 1}. {country1} - {country2}: {dist}")
+        print(f"{i + 1}. {country1} - {country2}: {round(dist, 4)}")
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
         case _:
             raise ValueError("invalid weights config")
     dim = standardized.shape[1]
-    size = 4
+    size = settings["size"]
     learning_rate = settings["learning_rate"] if settings["constant_lr"] else None
     radius = settings["radius"] if settings["constant_radius"] else None
     kohonen = KohonenNetwork(size, radius, learning_rate, weights, dim)
@@ -55,7 +55,7 @@ def main():
         hit_matrix[i, j] += 1
         names_matrix[i][j] += countries[idx] + "\n"
 
-    plots.heatmap(hit_matrix, "hits.png", "hits", names_matrix)
+    plots.heatmap(hit_matrix, "hits.png", text=names_matrix)
 
     u_matrix = np.zeros((size, size))
     neighbor_indices = [(-1, 0), (1, 0), (0, -1), (0, 1)]
@@ -69,10 +69,6 @@ def main():
             u_matrix[i, j] = np.mean(distances)
 
     plots.heatmap(u_matrix, "umatrix.png", "u-matrix")
-
-    # make heatmap for each feature
-    for i, variable in enumerate(variables[1:]):
-        plots.heatmap(kohonen.matrix[:, :, i], f"{variable}.png", variable)
 
 
 if __name__ == '__main__':
