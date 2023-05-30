@@ -20,9 +20,9 @@ def main():
     hopfield = HopfieldNetwork(len(letters[0]))
     hopfield.train(letters)
 
-    letters_with_noise = utils.add_noise(letters * -1, 0.3)
+    letter_with_noise = utils.add_small_noise(Z, 3)
 
-    pattern_history, terminated = hopfield.recall(espureo, 100)
+    pattern_history, terminated = hopfield.recall(letter_with_noise, 10)
     energy_history = [hopfield.energy(pattern) for pattern in pattern_history]
     pattern_history = [pattern.reshape(5, 5) for pattern in pattern_history]
     for pattern in pattern_history:
