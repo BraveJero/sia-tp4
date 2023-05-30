@@ -21,7 +21,7 @@ letters = [J, A, Z, B]
 orthogonal = [P, M, L, I]
 
 def test():
-    TEST_COUNT = 500
+    TEST_COUNT = 100
     n = len(letters[0])
     h_not_ortho = HopfieldNetwork(n)
     h_not_ortho.train(letters)
@@ -54,7 +54,7 @@ def test():
     print(ortho_mean)
     print(not_ortho_mean)
     fig, ax = plt.subplots()
-    plt.title("Accuracy vs. Noise (promedio de 100 experimentos)")
+    plt.title("Aciertos vs. #Celdas cambiadas (promedio de 100 experimentos)")
     plt.xlabel("Cantidad de celdas cambiadas")
     plt.ylabel("Rate de aciertos")
     ax.bar(np.arange(n), ortho_mean, alpha=0.75, label=r"$\Sigma |<,>| = 8$")
@@ -63,8 +63,50 @@ def test():
     plt.show()
 
 
+def test2():
+    TEST_COUNT = 100
+    n = len(letters[0])
+    h_4 = HopfieldNetwork(n)
+    h_4.train(orthogonal)
+    h_5 = HopfieldNetwork(n)
+    extra = orthogonal + [A]
+    h_5.train(extra)
+
+    p, t = h_5.recall(A, 100)
+    print("AAA" if t and list(p[-1].flatten()) == M else "NOOO")
+    mean_4 = []
+    mean_5 = []
+    fig, ax = plt.subplots()
+    for i in range(0, n):
+        four = []
+        five = []
+        for _ in range(TEST_COUNT):
+            letter = random.choice(orthogonal)
+            noisy_letter = utils.add_small_noise(letter, i)
+            recalled_letter, terminated = h_4.recall(noisy_letter, 100)
+            recalled_letter = list(recalled_letter[-1].flatten())
+            four.append(1 if terminated and letter == recalled_letter else 0)
+
+            letter = random.choice(extra)
+            noisy_letter = utils.add_small_noise(letter, i)
+            recalled_letter, terminated = h_5.recall(noisy_letter, 100)
+            recalled_letter = list(recalled_letter[-1].flatten())
+            five.append(1 if terminated and letter == recalled_letter else 0)
+        mean_4.append(np.mean(four))
+        mean_5.append(np.mean(five))
+    print(mean_4)
+    print(mean_5)
+    plt.title("Aciertos vs. #Celdas cambiadas (promedio de 1000 experimentos)")
+    plt.xlabel("Cantidad de celdas cambiadas")
+    plt.ylabel("Rate de aciertos")
+    ax.bar(np.arange(n), mean_4, alpha=0.75, label=r"#I = 4")
+    ax.bar(np.arange(n), mean_5, alpha=0.75, label=r"#I = 5")
+    plt.legend()
+    plt.show()
+
+
 def main():
-    test()
+    test2()
     hopfield = HopfieldNetwork(len(letters[0]))
     hopfield.train(letters)
 
