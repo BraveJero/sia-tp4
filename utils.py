@@ -2,6 +2,7 @@ import csv
 import json
 import random
 import sys
+from copy import copy
 
 import numpy as np
 from numpy import ndarray
@@ -37,7 +38,7 @@ def standarize_matrix_by_colum(m: ndarray) -> ndarray:
 
 
 def add_small_noise(letter, count):
-    letter_with_noise = letter
+    letter_with_noise = copy(letter)
     indices = np.random.choice(len(letter) - 1, size=count, replace=False)
     for i in indices:
         letter_with_noise[i] *= -1
